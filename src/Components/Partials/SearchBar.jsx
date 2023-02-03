@@ -2,14 +2,12 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { Button_Styled } from "../../Styles/Button_Styled";
 import { Input_Styled } from "../../Styles/Input_Styled";
-import { FaArrowRight } from "react-icons/fa";
 import mail from "../../Assets/Images/mail-icon.png";
 import phone from "../../Assets/Images/phone-icon.png";
 import cart from "../../Assets/Images/cart-icon.png";
-import { Link, Outlet, Route, Routes } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useLoginStore } from "../../Pages/Login/useLoginStore";
 import TinyCart from "../../Pages/ShoppingCart/TinyCart";
-import Cart from "../../Pages/ShoppingCart/ShoppingCart";
 
 const Contact = styled.div`
   display: flex;
@@ -39,6 +37,17 @@ const HeaderSearchBar = styled.div`
     position: relative;
   }
 
+  ul {
+    position: absolute;
+    top: 3em;
+    padding: 1em;
+    background-color: #81c27b;
+    li {
+      margin: 0.5em auto;
+      color: black;
+    }
+  }
+
   @media screen and (max-width: 500px) {
     display: none;
   }
@@ -54,23 +63,20 @@ const SearchBar = () => {
 
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState([]);
-  const [users, setUsers] = useState([]);
 
-  const handleChange = (e) => {
-    setSearchTerm(e.target.value);
-    e.preventDefault();
-    setSearchResults([]);
-    fetch(`https://api.mediehuset.net/stringsonline/search/${searchTerm}`)
-      .then((res) => res.json())
-      .then((data) => setSearchResults(data))
-      .catch((err) => console.log(err));
+  const handleChange = (event) => {
+    setSearchTerm(event.target.value);
   };
 
-  useEffect(() => {
-    fetch("https://dummyjson.com/users")
-      .then((res) => res.json())
-      .then((data) => setUsers(data.users.slice(0, 20)));
-  }, []); // empty dependency array
+  const handleSearch = async () => {
+    try {
+      const response = await fetch(`https://api.mediehuset.net/stringsonline/search/${searchTerm}`);
+      const data = await response.json();
+      setSearchResults(data);
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
   return (
     <>
@@ -93,11 +99,16 @@ const SearchBar = () => {
           </picture>
         </Contact>
         <div>
-          <Input_Styled type="text" value={searchTerm} onChange={handleChange} placeholder="Search for a user" />
+          <Input_Styled placeholder="Søg.." type="text" value={searchTerm} onChange={handleChange} />
+          <Button_Styled onClick={handleSearch}>Søg</Button_Styled>
 
-          <Button_Styled>
-            <FaArrowRight color="#000000c8" size={25} />
-          </Button_Styled>
+          {searchResults?.items ? (
+            <ul>
+              {searchResults?.items.map((result, index) => (
+                <li key={index}>{result.name}</li>
+              ))}
+            </ul>
+          ) : null}
         </div>
       </HeaderSearchBar>
     </>

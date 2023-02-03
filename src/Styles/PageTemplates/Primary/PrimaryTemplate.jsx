@@ -22,9 +22,7 @@ export const PrimaryTemplate = (props) => {
       <div>
         <ProductIndex />
       </div>
-      {/* <div>
-        <News />
-      </div> */}
+
       <Page>{props.children}</Page>
       <div>
         <Footer />

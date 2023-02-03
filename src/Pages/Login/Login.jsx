@@ -2,7 +2,6 @@ import { useState } from "react";
 import { useLoginStore } from "./useLoginStore";
 import useFlashMessageStore from "../../Components/FlashMessages/useFlashMessageStore";
 import { useNavigate } from "react-router-dom";
-import { Page } from "../../Components/Layout/Page";
 import { Styled_Form } from "../../Styles/Form_Styled";
 import { Button_Styled } from "../../Styles/Button_Styled";
 import { Input_Styled } from "../../Styles/Input_Styled";
@@ -12,8 +11,6 @@ const Login = () => {
   const { setLoggedIn, loggedIn } = useLoginStore();
   const { setFlashMessage } = useFlashMessageStore();
   const navigate = useNavigate();
-
-  console.log(loggedIn);
 
   const [user, setUser] = useState({
     username: "",

@@ -1,7 +1,7 @@
 import React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { MainNav } from "./MainNav.styled";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import styled from "styled-components";
 import useIsOpenNavStore from "./useIsOpenNavStore";
 import { useLoginStore } from "../../../Pages/Login/useLoginStore";
@@ -67,14 +67,8 @@ const Menu = styled.nav`
 
 const Header = () => {
   const { isOpen, setIsOpen } = useIsOpenNavStore();
-  const [shrinkHeader, setShrinkHeader] = useState(false);
+  const [shrinkHeader] = useState(false);
   const { setLoggedIn, loggedIn } = useLoginStore();
-  const navigate = useNavigate();
-  const [currentComponent, setCurrentComponent] = useState("componentA");
-
-  const handleClick = () => {
-    setCurrentComponent("componentB");
-  };
 
   return (
     <MainHeader>

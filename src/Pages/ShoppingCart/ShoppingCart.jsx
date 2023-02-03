@@ -6,7 +6,6 @@ import { FaPlus, FaMinus } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { Cart } from "./Cart.styled";
 import { Shop } from "./Shop.styled";
-import { Page } from "../../Components/Layout/Page";
 
 const ShoppingCart = () => {
   const { cartItems, setDeleteItem, setEmptyCart, increaseCartQuantity, decreaseCartQuantity } = useShoppingCardStore();
@@ -65,7 +64,7 @@ const ShoppingCart = () => {
 
               <>{cartItems > [1] ? <Button_Delete onClick={() => setEmptyCart()}>Tøm kurven</Button_Delete> : null}</>
             </div>
-            <Button_Styled onClick={() => navigate("/products/cart/checkout")}>Til kassen</Button_Styled>
+            <Button_Styled onClick={() => navigate("/checkout")}>Til kassen</Button_Styled>
           </article>
         </>
       ) : (

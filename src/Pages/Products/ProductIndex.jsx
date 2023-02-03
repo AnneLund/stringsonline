@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { Link, Outlet, Route, Routes } from "react-router-dom";
+import { Outlet, Route, Routes } from "react-router-dom";
 import { Link_Styled } from "../../Styles/Link_Styled";
 import ProductDetails from "../../Pages/Products/ProductDetails";
 import { DropUl, List_Styled, Navbar } from "../Products/Sidebar_Styled";
 import ShoppingCart from "../ShoppingCart/ShoppingCart";
 import ProductById from "./ProductById";
 import Login from "../Login/Login";
+import CheckOut from "../ShoppingCart/CheckOut";
 
 const ProductIndex = () => {
   const [groups, setGroups] = useState([]);
@@ -76,6 +77,7 @@ const ProductIndex = () => {
           <Route path="/cart" element={<ShoppingCart />} />
           <Route path="/product" element={<ProductById />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/checkout" element={<CheckOut />} />
 
           <Route path="*" element={<p>Ikke fundet</p>} />
         </Routes>
