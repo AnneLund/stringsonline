@@ -1,24 +1,26 @@
-import logo from './logo.svg';
-import './App.css';
+import { ThemeProvider } from "styled-components";
+import { Theme } from "./Styles/Themes/Theme";
+import { Globals } from "./Styles/Globals.styled";
+import Flashmessages from "./Components/FlashMessages/FlashMessages";
+import { Route, Routes } from "react-router-dom";
+import Home from "./Pages/Home";
+import ProductDetails from "./Pages/Products/ProductDetails";
+import { Cart } from "./Pages/ShoppingCart/Cart.styled";
+import ProductIndex from "./Pages/Products/ProductIndex";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ThemeProvider theme={Theme}>
+      <Flashmessages />
+      <Globals />
+      <Routes>
+        <Route path="/*" element={<Home />} />
+
+        <Route path="/products/*" element={<ProductIndex />} />
+
+        <Route path="*" element={<p>Not found</p>} />
+      </Routes>
+    </ThemeProvider>
   );
 }
 
